@@ -14,6 +14,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata = {
+  title: 'SimBiz101',
+  description: 'SimBiz101 app'
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head />
+      <body>{children}</body>
+    </html>
+  )
+}
+
 export const metadata: Metadata = {
   title: "Business Tycoon - Build Your Empire",
   description: "A strategic business simulation game where you build and manage your corporate empire.",

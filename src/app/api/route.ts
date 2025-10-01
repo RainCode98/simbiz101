@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { neonFetch } from '../../../lib/neonRest'
+import { neonFetch } from '../../lib/neonRest'
 
 export async function GET() {
   try {
