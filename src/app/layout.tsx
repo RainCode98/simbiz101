@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'SimBiz101',
-  description: 'SimBiz101 app'
+  title: "Business Tycoon - Build Your Empire",
+  description: "A strategic business simulation game where you build and manage your corporate empire.",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,47 +26,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>{children}</body>
     </html>
   )
-}
-
-export const metadata: Metadata = {
-  title: "Business Tycoon - Build Your Empire",
-  description: "A strategic business simulation game where you build and manage your corporate empire.",
-  keywords: ["Business Tycoon", "Simulation Game", "Strategy", "Management", "Empire Building"],
-  authors: [{ name: "Business Tycoon Team" }],
-  openGraph: {
-    title: "Business Tycoon - Build Your Empire",
-    description: "Strategic business simulation game",
-    url: "https://businesstycoon.com",
-    siteName: "Business Tycoon",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Business Tycoon",
-    description: "Build your corporate empire",
-  },
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
-      </body>
-    </html>
-  );
 }
