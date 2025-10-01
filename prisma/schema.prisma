@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  company   Company?
+}
+
+model Company {
+  id          String   @id @default(cuid())
+  name        String
+  country     String
+  money       Float    @default(15000.0) // Starting money: $15K
+  revenue     Float    @default(0.0)
+  expenses    Float    @default(0.0)
+  happiness   Int      @default(50) // 0-100
+  reputation  Int      @default(50) // 0-100
+  level       Int      @default(1) // Game level
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  employees   Employee[]
+  projects    Project[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Employee {
+  id          String   @id @default(cuid())
+  name        String
+  role        String   // "Developer" or "Designer"
+  skill       Int      // Skill level 1-100
+  salary      Float    // Monthly salary
+  happiness   Int      @default(50) // 0-100
+  projectId   String?  // Currently assigned project
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  project     Project? @relation(fields: [projectId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id              String    @id @default(cuid())
+  name            String
+  description     String
+  type            String    // "Development" or "Design"
+  requiredSkills   String?   // JSON string of required skills by role
+  baseReward      Float     // Base payment for completion
+  amountPaid      Float     @default(0.0) // Amount paid so far
+  bonus           Float?    // Bonus for early completion
+  status          String    @default("available") // "available", "in_progress", "completed", "failed"
+  progress        Float     @default(0.0) // 0-100
+  startTime       DateTime?
+  endTime         DateTime?
+  deadline        DateTime?
+  lastPaymentTime DateTime? // Last time payment was made
+  companyId       String
+  company         Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  employees       Employee[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
